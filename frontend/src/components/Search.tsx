@@ -15,7 +15,6 @@ const Search = ({setContryName}: Props) => {
 
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data)
     setContryName(data.country)
   };
 

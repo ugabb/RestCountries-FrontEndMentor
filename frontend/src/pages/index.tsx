@@ -35,37 +35,30 @@ export default function Home() {
     getCountries();
   }, []);
 
-  const filterCountries = async (contryName: string, countries: any[]) => {
+  const filter = async (
+    contryName: string,
+    region: string,
+    countries: any[]
+  ) => {
     if (contryName !== "") {
       const results = countries.filter((country, i) => {
         return country.name.toLowerCase().startsWith(contryName.toLowerCase());
       });
       setContryFilter(results);
-      console.log(results);
-    } else {
-      setContryFilter(countries);
-    }
-  };
-
-  const filterRegion = async (region: string, countries: any[]) => {
-    if (region !== "") {
+    } else if (region !== "") {
       const results = countries.filter((country, i) => {
         return country.region.toLowerCase().startsWith(region.toLowerCase());
       });
       setRegionFilter(results);
-      console.log(results);
-    } else {
-      setRegionFilter(countries);
+    } else{
+      setContryFilter("");
+      setRegionFilter("");
     }
   };
 
   useEffect(() => {
-    filterCountries(contryName, countries);
-  }, [contryName,countries ]);
-
-  useEffect(() => {
-    filterRegion(regionName, countries);
-  }, [regionName,countries]);
+    filter(contryName, regionName, countries);
+  }, [contryName, regionName, countries]);
 
   // const getByCountryName = async (country: string) => {
   //   try {
@@ -82,27 +75,6 @@ export default function Home() {
     <>
       <Search setContryName={setContryName} />
       <FilterRegion setRegionName={setRegionName} />
-
-      {/* {
-        regionFilter !== "" &&  <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
-        {regionFilter &&
-          regionFilter.map((country: any) => {
-            const { numericCode, name, population, flag, region, capital } =
-              country;
-            return (
-              <article key={numericCode}>
-                <CountryCard
-                  flag={flag}
-                  country={name}
-                  population={population}
-                  region={region}
-                  capital={capital}
-                />
-              </article>
-            );
-          })}
-      </div>
-      } */}
 
       {contryFilter !== "" ? (
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
@@ -145,13 +117,11 @@ export default function Home() {
       ) : (
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
           {countries &&
-            countries.map((contry) => {
+            countries.map((country: any) => {
               const { numericCode, name, population, flag, region, capital } =
-                contry;
-
+                country;
               return (
                 <article key={numericCode}>
-                  <h1>Pssou direto</h1>
                   <CountryCard
                     flag={flag}
                     country={name}

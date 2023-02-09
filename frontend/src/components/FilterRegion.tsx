@@ -14,7 +14,6 @@ const FilterRegion = ({setRegionName}: Props) => {
 
     const {register, handleSubmit} = useForm<IFormRegion>();
     const onSubmit: SubmitHandler<IFormRegion> = data => {
-      console.log(data);
       setRegionName(data.region)
     }
 
