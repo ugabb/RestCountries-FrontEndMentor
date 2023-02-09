@@ -1,7 +1,5 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
-import Name from "@/pages/name/[index]";
 
 type Props = {
   // getByCountryName: Function;
@@ -13,7 +11,7 @@ interface IFormInput {
 }
 
 const Search = ({setContryName}: Props) => {
-  const [country, setCountry] = useState<any[]>([]);
+
 
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {

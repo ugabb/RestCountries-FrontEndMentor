@@ -1,6 +1,3 @@
-import Head from "next/head";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import Search from "@/components/Search";
 import CountryCard from "@/components/CountryCard";
@@ -18,6 +15,8 @@ type Country = {
 export default function Home() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [contryName, setContryName] = useState<string>("");
+  const [regionName, setRegionName] = useState<string>("");
+  const [regionFilter, setRegionFilter] = useState<any>("");
   const [contryFilter, setContryFilter] = useState<any>("");
 
   const baseUrl = "https://restcountries.com/v2";
@@ -48,9 +47,25 @@ export default function Home() {
     }
   };
 
+  const filterRegion = async (region: string, countries: any[]) => {
+    if (region !== "") {
+      const results = countries.filter((country, i) => {
+        return country.region.toLowerCase().startsWith(region.toLowerCase());
+      });
+      setRegionFilter(results);
+      console.log(results);
+    } else {
+      setRegionFilter(countries);
+    }
+  };
+
   useEffect(() => {
     filterCountries(contryName, countries);
-  }, [contryName]);
+  }, [contryName,countries ]);
+
+  useEffect(() => {
+    filterRegion(regionName, countries);
+  }, [regionName,countries]);
 
   // const getByCountryName = async (country: string) => {
   //   try {
@@ -66,29 +81,14 @@ export default function Home() {
   return (
     <>
       <Search setContryName={setContryName} />
-      <FilterRegion />
+      <FilterRegion setRegionName={setRegionName} />
 
-      {contryFilter !== "" ? (
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
-          {contryFilter &&
-            contryFilter.map((country: any) => (
-              <article>
-                <CountryCard
-                  flag={country.flag}
-                  country={country.name}
-                  population={country.population}
-                  region={country.region}
-                  capital={country.capital}
-                />
-              </article>
-            ))}
-        </div>
-      ) : (
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
-          {countries.map((contry) => {
+      {/* {
+        regionFilter !== "" &&  <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
+        {regionFilter &&
+          regionFilter.map((country: any) => {
             const { numericCode, name, population, flag, region, capital } =
-              contry;
-
+              country;
             return (
               <article key={numericCode}>
                 <CountryCard
@@ -101,6 +101,67 @@ export default function Home() {
               </article>
             );
           })}
+      </div>
+      } */}
+
+      {contryFilter !== "" ? (
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
+          {contryFilter &&
+            contryFilter.map((country: any) => {
+              const { numericCode, name, population, flag, region, capital } =
+                country;
+              return (
+                <article key={numericCode}>
+                  <CountryCard
+                    flag={flag}
+                    country={name}
+                    population={population}
+                    region={region}
+                    capital={capital}
+                  />
+                </article>
+              );
+            })}
+        </div>
+      ) : regionFilter !== "" ? (
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
+          {regionFilter &&
+            regionFilter.map((country: any) => {
+              const { numericCode, name, population, flag, region, capital } =
+                country;
+              return (
+                <article key={numericCode}>
+                  <CountryCard
+                    flag={flag}
+                    country={name}
+                    population={population}
+                    region={region}
+                    capital={capital}
+                  />
+                </article>
+              );
+            })}
+        </div>
+      ) : (
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-10 md:m-5">
+          {countries &&
+            countries.map((contry) => {
+              const { numericCode, name, population, flag, region, capital } =
+                contry;
+
+              return (
+                <article key={numericCode}>
+                  <h1>Pssou direto</h1>
+                  <CountryCard
+                    flag={flag}
+                    country={name}
+                    population={population}
+                    region={region}
+                    capital={capital}
+                  />
+                </article>
+              );
+            })}
         </div>
       )}
     </>
