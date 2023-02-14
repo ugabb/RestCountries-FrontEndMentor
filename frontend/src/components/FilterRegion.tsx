@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Props = {
-  setRegionName: Function;
+  setRegionName: any;
 };
 
 interface IFormRegion {
