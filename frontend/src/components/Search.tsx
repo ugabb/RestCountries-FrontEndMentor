@@ -2,7 +2,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Props = {
-  // getByCountryName: Function;
   setContryName: Function;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Props = {
@@ -10,7 +10,6 @@ interface IFormRegion {
 }
 
 const FilterRegion = ({setRegionName}: Props) => {
-    const [region, setRegion] = useState("");
 
     const {register, handleSubmit} = useForm<IFormRegion>();
     const onSubmit: SubmitHandler<IFormRegion> = data => {
