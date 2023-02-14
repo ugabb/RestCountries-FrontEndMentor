@@ -21,7 +21,7 @@ interface Details {
 }
 
 const Detail = (props: Props) => {
-  const [countries, setCountries] = useState<Details>({});
+  const [countries, setCountries] = useState<Details>();
 
   const baseUrl = "https://restcountries.com/v2";
 
@@ -104,6 +104,7 @@ const Detail = (props: Props) => {
                   Currencies:{" "}
                   {currencies &&
                     currencies.map((currencie) => (
+                      //@ts-ignore
                       <span className="font-normal">{currencie.name}</span>
                     ))}
                 </p>
@@ -111,6 +112,7 @@ const Detail = (props: Props) => {
                   Languages:{" "}
                   {languages &&
                     languages.map((language) => (
+                      //@ts-ignore
                       <span className=" font-normal">{language.name},</span>
                     ))}
                 </p>
