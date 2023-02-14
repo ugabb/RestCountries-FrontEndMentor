@@ -19,8 +19,8 @@ const FilterRegion = ({setRegionName}: Props) => {
 
 
   return (
-    <form onChange={handleSubmit(onSubmit)} className="py-4 bg-[#2b3945] w-1/2 ml-5 flex items-center justify-center rounded-lg mb-5">
-      <select {...register("region")} className="bg-[#2b3945] text-white">
+    <form onChange={handleSubmit(onSubmit)} className="py-4 bg-[#2b3945] w-1/2 lg:w-1/4 ml-5 flex items-center justify-center rounded-lg mb-5">
+      <select {...register("region")} className="bg-[#2b3945] text-white w-full px-2 mx-2">
         <option value="">Filter by Region</option>
         <option value="Africa">Africa</option>
         <option value="America">America</option>

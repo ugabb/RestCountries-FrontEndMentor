@@ -13,7 +13,12 @@ type Props = {
 const CountryCard = ({ flag, country, population, region, capital }: Props) => {
   return (
     <div className="w-3/4  md:w-full  mx-auto mb-10  rounded-lg bg-[#2b3945] h-[350px] drop-shadow-lg">
-      <Link href="/Detail">
+      <Link
+        href={{
+          pathname: `/details/${country}`,
+          query: { countryName: country },
+        }}
+      >
         <img
           className="h-1/2 w-full rounded-t-lg object-cover"
           src={flag}

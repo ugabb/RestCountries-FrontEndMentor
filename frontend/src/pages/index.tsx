@@ -21,6 +21,7 @@ export default function Home() {
 
   const baseUrl = "https://restcountries.com/v2";
 
+  // receiving api data
   async function getCountries() {
     try {
       const response = await fetch(`${baseUrl}/all`);
@@ -35,6 +36,7 @@ export default function Home() {
     getCountries();
   }, []);
 
+  // filtering data depend of country search or region selector
   const filter = async (
     contryName: string,
     region: string,
@@ -50,7 +52,7 @@ export default function Home() {
         return country.region.toLowerCase().startsWith(region.toLowerCase());
       });
       setRegionFilter(results);
-    } else{
+    } else {
       setContryFilter("");
       setRegionFilter("");
     }
@@ -60,19 +62,8 @@ export default function Home() {
     filter(contryName, regionName, countries);
   }, [contryName, regionName, countries]);
 
-  // const getByCountryName = async (country: string) => {
-  //   try {
-  //     const response = await fetch(`${baseUrl}/name/${country}`);
-  //     const data = await response.json();
-  //     console.log(data);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // };
-
   return (
-    <>
+    <div className="flex flex-col">
       <Search setContryName={setContryName} />
       <FilterRegion setRegionName={setRegionName} />
 
@@ -134,6 +125,6 @@ export default function Home() {
             })}
         </div>
       )}
-    </>
+    </div>
   );
 }
